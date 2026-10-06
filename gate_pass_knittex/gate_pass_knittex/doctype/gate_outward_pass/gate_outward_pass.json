@@ -15,6 +15,7 @@
   "customer",
   "column_break_1wc4",
   "supplier",
+  "fetch_sample_forms_item",
   "dn_no",
   "po_no",
   "prr_no",
@@ -28,6 +29,9 @@
   "section_break_bs2dq",
   "get_items",
   "gate_outward_pass_items",
+  "section_break_sample_forms",
+  "sample_form_items",
+  "total_qty",
   "amended_from"
  ],
  "fields": [
@@ -128,7 +132,7 @@
    "options": "Customer"
   },
   {
-   "depends_on": "eval:doc.gate_pass_outward_type == 'PO [Service Order]' || doc.gate_pass_outward_type == 'Purchase Receipt Return';",
+   "depends_on": "eval:doc.gate_pass_outward_type == 'PO [Service Order]' || doc.gate_pass_outward_type == 'Purchase Receipt Return' || doc.gate_pass_outward_type == 'Sample';",
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
@@ -163,13 +167,36 @@
    "fieldtype": "Link",
    "label": "Branch",
    "options": "Branch"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_outward_type == 'Sample';",
+   "fieldname": "fetch_sample_forms_item",
+   "fieldtype": "Button",
+   "label": "Fetch Sample Forms Item"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_outward_type == 'Sample';",
+   "fieldname": "section_break_sample_forms",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sample_form_items",
+   "fieldtype": "Table",
+   "label": "Sample Form Items",
+   "options": "Sample Form Item"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-05 18:47:21.952840",
+ "modified": "2026-10-06 18:23:08.103130",
  "modified_by": "Administrator",
  "module": "Gate Pass Knittex",
  "name": "Gate Outward Pass",

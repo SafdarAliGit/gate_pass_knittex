@@ -60,7 +60,70 @@ frappe.ui.form.on('Gate Outward Pass', {
             frappe.msgprint(__('Please select at least one reference'));
         }
     },
+    fetch_sample_forms_item: function (frm) {
+        new frappe.ui.form.MultiSelectDialog({
+            doctype: "Sample Form",
+            target: frm,
+            setters: {
+                buyer_name: null,
+                article_no: null,
+                sample_type: null
+            },
+            primary_action_label: __("Fetch Sample Forms"),
+            get_query: function () {
+                return {
+                    filters: { docstatus: 1 }
+                };
+            },
+            action: function (selections) {
+                if (!selections || !selections.length) {
+                    frappe.msgprint(__('Please select at least one Sample Form'));
+                    return;
+                }
+                fetch_sample_form_items(frm, selections);
+                cur_dialog.hide();
+            }
+        });
+    },
 });
+
+frappe.ui.form.on('Sample Form Item', {
+    qty: function (frm) {
+        calculate_total_qty(frm);
+    },
+    sample_form_items_remove: function (frm) {
+        calculate_total_qty(frm);
+    },
+});
+
+function fetch_sample_form_items(frm, sample_forms) {
+    frappe.call({
+        method: "gate_pass_knittex.gate_pass_knittex.doctype.utils.fetch_items.fetch_sample_form_items",
+        args: {
+            sample_forms: sample_forms
+        },
+        callback: function (response) {
+            let existing = (frm.doc.sample_form_items || []).map(r => r.sample_form);
+            (response.message.sfi || []).forEach(function (p) {
+                if (existing.includes(p.sample_form)) return;
+                let entry = frm.add_child("sample_form_items");
+                entry.sample_form = p.sample_form;
+                entry.customer = p.customer;
+                entry.article_no = p.article_no;
+                entry.style = p.style;
+                entry.qty = p.qty;
+                entry.sample_type = p.sample_type;
+            });
+            frm.refresh_field('sample_form_items');
+            calculate_total_qty(frm);
+        }
+    });
+}
+
+function calculate_total_qty(frm) {
+    let total = (frm.doc.sample_form_items || []).reduce((sum, r) => sum + flt(r.qty), 0);
+    frm.set_value('total_qty', total);
+}
 
 function fetch_gop_items(frm, no,source) {
     if (no) {

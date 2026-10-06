@@ -128,3 +128,28 @@ def fetch_employee_info(**args):
     return {
         "emp": emp_result,
     }
+
+@frappe.whitelist()
+def fetch_sample_form_items(**args):
+    sample_forms = frappe.parse_json(args.get('sample_forms') or "[]")
+    if not sample_forms:
+        return {"sfi": []}
+
+    sf = frappe.qb.DocType("Sample Form")
+    parent_query = (
+        frappe.qb.from_(sf)
+        .select(
+            sf.name.as_("sample_form"),
+            sf.buyer_name.as_("customer"),
+            sf.article_no,
+            sf.style,
+            sf.order_qty.as_("qty"),
+            sf.sample_type
+        ).where((sf.name.isin(sample_forms)) & (sf.docstatus == 1))
+        .orderby(sf.name)
+    )
+    sfi_result = parent_query.run(as_dict=True)
+
+    return {
+        "sfi": sfi_result,
+    }
