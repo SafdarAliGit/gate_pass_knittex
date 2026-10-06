@@ -62,17 +62,17 @@ frappe.ui.form.on('Gate Outward Pass', {
     },
     fetch_sample_forms_item: function (frm) {
         new frappe.ui.form.MultiSelectDialog({
-            doctype: "Sample Form",
+            doctype: "Sample Forms",
             target: frm,
             setters: {
-                buyer_name: null,
-                article_no: null,
+                customer: null,
+                article: null,
                 sample_type: null
             },
             primary_action_label: __("Fetch Sample Forms"),
             get_query: function () {
                 return {
-                    filters: { docstatus: 1 }
+                    filters: { docstatus: ["!=", 2] }
                 };
             },
             action: function (selections) {

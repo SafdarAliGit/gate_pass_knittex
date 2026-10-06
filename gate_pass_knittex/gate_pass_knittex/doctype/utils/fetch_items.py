@@ -135,17 +135,17 @@ def fetch_sample_form_items(**args):
     if not sample_forms:
         return {"sfi": []}
 
-    sf = frappe.qb.DocType("Sample Form")
+    sf = frappe.qb.DocType("Sample Forms")
     parent_query = (
         frappe.qb.from_(sf)
         .select(
             sf.name.as_("sample_form"),
-            sf.buyer_name.as_("customer"),
-            sf.article_no,
+            sf.customer,
+            sf.article.as_("article_no"),
             sf.style,
-            sf.order_qty.as_("qty"),
+            sf.qty,
             sf.sample_type
-        ).where((sf.name.isin(sample_forms)) & (sf.docstatus == 1))
+        ).where((sf.name.isin(sample_forms)) & (sf.docstatus != 2))
         .orderby(sf.name)
     )
     sfi_result = parent_query.run(as_dict=True)
