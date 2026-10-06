@@ -1,0 +1,194 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "GIP-.YYYY.-.#####",
+ "creation": "2024-04-08 04:58:41.004339",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "entry_no",
+  "gate_pass_inward_type",
+  "party",
+  "customer",
+  "column_break_ougwf",
+  "date",
+  "po_no",
+  "so_no",
+  "sample_no",
+  "outward_no",
+  "mr_no",
+  "column_break_68uki",
+  "delivery_challan_no",
+  "vechile_no",
+  "branch",
+  "section_break_bs2dq",
+  "get_items",
+  "gate_inward_pass_items",
+  "amended_from",
+  "ref_no",
+  "ref_doctype"
+ ],
+ "fields": [
+  {
+   "fieldname": "entry_no",
+   "fieldtype": "Data",
+   "label": "Entry No",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date"
+  },
+  {
+   "fieldname": "gate_pass_inward_type",
+   "fieldtype": "Select",
+   "label": "Gate Pass Inward Type ",
+   "options": "\nPO\nSO\nSample\nOutward\nMaterial Request"
+  },
+  {
+   "fieldname": "delivery_challan_no",
+   "fieldtype": "Data",
+   "label": "Delivery Challan No"
+  },
+  {
+   "fieldname": "vechile_no",
+   "fieldtype": "Data",
+   "label": "Vechile No"
+  },
+  {
+   "fieldname": "get_items",
+   "fieldtype": "Button",
+   "label": "Get Items "
+  },
+  {
+   "fieldname": "gate_inward_pass_items",
+   "fieldtype": "Table",
+   "label": "Gate Inward Pass Items",
+   "options": "Gate Inward Pass Items"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gate Inward Pass",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_bs2dq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_ougwf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_68uki",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type != 'SO';",
+   "fieldname": "party",
+   "fieldtype": "Link",
+   "label": "Party",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type == 'PO';",
+   "fieldname": "po_no",
+   "fieldtype": "Link",
+   "label": "PO No",
+   "options": "Purchase Order"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type == 'Sample';",
+   "fieldname": "sample_no",
+   "fieldtype": "Data",
+   "label": "Sample No"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type == 'Outward';",
+   "fieldname": "outward_no",
+   "fieldtype": "Link",
+   "label": "Outward No",
+   "options": "Gate Outward Pass"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type == 'Material Request';",
+   "fieldname": "mr_no",
+   "fieldtype": "Link",
+   "label": "Material Request",
+   "options": "Material Request"
+  },
+  {
+   "fieldname": "ref_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Ref No"
+  },
+  {
+   "fieldname": "ref_doctype",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Ref Doctype"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type == 'SO';",
+   "fieldname": "so_no",
+   "fieldtype": "Link",
+   "label": "SO No",
+   "options": "Sales Order"
+  },
+  {
+   "depends_on": "eval:doc.gate_pass_inward_type == 'SO';",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Purchase Receipt",
+   "link_fieldname": "ref_no"
+  }
+ ],
+ "modified": "2026-09-05 18:44:57.514037",
+ "modified_by": "Administrator",
+ "module": "Gate Pass Knittex",
+ "name": "Gate Inward Pass",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
