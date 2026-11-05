@@ -57,7 +57,7 @@
    "fieldname": "gate_pass_outward_type",
    "fieldtype": "Select",
    "label": "Gate Pass Outward Type ",
-   "options": "\nDN\nPO [Service Order]\nPurchase Receipt Return\nSample"
+   "options": "\nDN\nPO [Service Order]\nPurchase Receipt Return\nSample\nOther"
   },
   {
    "fieldname": "column_break_p8dwh",
@@ -132,7 +132,7 @@
    "options": "Customer"
   },
   {
-   "depends_on": "eval:doc.gate_pass_outward_type == 'PO [Service Order]' || doc.gate_pass_outward_type == 'Purchase Receipt Return' || doc.gate_pass_outward_type == 'Sample';",
+   "depends_on": "eval:doc.gate_pass_outward_type == 'PO [Service Order]' || doc.gate_pass_outward_type == 'Purchase Receipt Return' || doc.gate_pass_outward_type == 'Sample' || doc.gate_pass_outward_type == 'Other';",
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
@@ -196,7 +196,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-10-06 18:23:08.103130",
+ "modified": "2026-11-05 17:46:57.770676",
  "modified_by": "Administrator",
  "module": "Gate Pass Knittex",
  "name": "Gate Outward Pass",
