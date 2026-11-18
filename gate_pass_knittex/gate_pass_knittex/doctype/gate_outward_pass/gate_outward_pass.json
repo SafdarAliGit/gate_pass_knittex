@@ -19,6 +19,7 @@
   "dn_no",
   "po_no",
   "prr_no",
+  "unit",
   "column_break_p8dwh",
   "inward_gate_pass",
   "delivery_challan_no",
@@ -190,13 +191,19 @@
    "fieldtype": "Float",
    "label": "Total Qty",
    "read_only": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Select",
+   "label": "Unit",
+   "options": "\nUnit 1\nUnit 2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-11-05 17:46:57.770676",
+ "modified": "2026-11-18 16:22:00.219573",
  "modified_by": "Administrator",
  "module": "Gate Pass Knittex",
  "name": "Gate Outward Pass",
